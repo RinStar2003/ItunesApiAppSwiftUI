@@ -16,6 +16,7 @@
 		44078D95293F8F74001E2A9A /* Song.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44078D94293F8F74001E2A9A /* Song.swift */; };
 		44078D99293F8F8F001E2A9A /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44078D98293F8F8F001E2A9A /* Movie.swift */; };
 		44078D9B293FAA1A001E2A9A /* AlbumListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44078D9A293FAA1A001E2A9A /* AlbumListView.swift */; };
+		443B5E4E2940A6280080D796 /* AlbumSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 443B5E4D2940A6280080D796 /* AlbumSearchView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +30,7 @@
 		44078D94293F8F74001E2A9A /* Song.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Song.swift; sourceTree = "<group>"; };
 		44078D98293F8F8F001E2A9A /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
 		44078D9A293FAA1A001E2A9A /* AlbumListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumListView.swift; sourceTree = "<group>"; };
+		443B5E4D2940A6280080D796 /* AlbumSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumSearchView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +85,7 @@
 			isa = PBXGroup;
 			children = (
 				44078D81293F7F97001E2A9A /* ContentView.swift */,
+				443B5E4D2940A6280080D796 /* AlbumSearchView.swift */,
 				44078D9A293FAA1A001E2A9A /* AlbumListView.swift */,
 			);
 			path = Views;
@@ -178,6 +181,7 @@
 			files = (
 				44078D93293F8A6F001E2A9A /* AlbumListViewModel.swift in Sources */,
 				44078D82293F7F97001E2A9A /* ContentView.swift in Sources */,
+				443B5E4E2940A6280080D796 /* AlbumSearchView.swift in Sources */,
 				44078D99293F8F8F001E2A9A /* Movie.swift in Sources */,
 				44078D80293F7F97001E2A9A /* iTunesSearchAPIAppSwiftUIApp.swift in Sources */,
 				44078D91293F89A3001E2A9A /* Album.swift in Sources */,
