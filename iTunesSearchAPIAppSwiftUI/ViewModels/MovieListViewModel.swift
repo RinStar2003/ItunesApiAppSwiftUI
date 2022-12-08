@@ -6,6 +6,8 @@
 //
 
 import Foundation
+import Combine
+
 
 class MovieListViewModel: ObservableObject {
     
@@ -13,34 +15,58 @@ class MovieListViewModel: ObservableObject {
     @Published var movies: [Movie] = [Movie]()
     @Published var state: FetchState = .good
     
+    let defaultLimits = 50
+    
     let service = Service()
     
-    var limit: Int = 20
-    var page: Int = 0
+    var subscriptions = Set<AnyCancellable>()
     
+    init() {
+        
+        $searchTerm
+            .dropFirst()
+            .debounce(for: .seconds(0.5), scheduler: RunLoop.main)
+            .sink { [weak self] term in
+                self?.state = .good
+                self?.movies = []
+                self?.fetchMovies(for: term)
+            }.store(in: &subscriptions)
+        
+    }
+
     func fetchMovies(for searchTerm: String) {
         
         guard !searchTerm.isEmpty else { return }
         
         guard state == FetchState.good else { return }
         
-        let offset = page * limit
-        
-        service.fetchMovies(searchTerm: searchTerm, page: page, limit: limit) { [weak self] result in
+        state = .isLoading
+                
+        service.fetchMovies(searchTerm: searchTerm) { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
+                    
                 case .success(let results):
-                    for movie in results.results {
-                        self?.movies.append(movie)
+                    self?.movies = results.results
+                    
+                    if results.resultCount == self?.defaultLimits {
+                        self?.state = .good
+                    } else {
+                        self?.state = .loadedAll
                     }
-                    self?.page += 1
-                    self?.state = (results.results.count == self?.limit) ? .good : .loadedAll
-                    print("fetched \(results.resultCount)")
-                case .failure(let error):
-                    self?.state = .error("Could not load: \(error.localizedDescription)")
+                        
+                        print("fetched \(results.resultCount) - \(results.results.count)")
+                        
+                    case .failure(let error):
+                        print("Could not load data: \(error)")
+                        self?.state = .error("Could not load: \(error.localizedDescription)")
                 }
             }
         }
+    }
+    
+    func loadMore() {
+        fetchMovies(for: searchTerm)
     }
     
 }

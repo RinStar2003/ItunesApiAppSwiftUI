@@ -19,7 +19,7 @@ struct SongResults: Codable {
 }
 
 // MARK: - Result
-struct Song: Codable {
+struct Song: Codable, Identifiable {
     let wrapperType, kind: String
     let artistID, collectionID, trackID: Int
     let artistName, collectionName, trackName, collectionCensoredName: String
@@ -35,6 +35,10 @@ struct Song: Codable {
     let country, currency, primaryGenreName: String
     let isStreamable: Bool
 
+    var id: Int {
+        return artistID
+    }
+    
     enum CodingKeys: String, CodingKey {
         case wrapperType, kind
         case artistID = "artistId"

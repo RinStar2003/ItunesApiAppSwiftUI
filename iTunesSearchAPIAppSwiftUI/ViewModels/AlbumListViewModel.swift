@@ -23,7 +23,7 @@ class AlbumListViewModel: ObservableObject {
     var limit: Int = 20
     var page: Int = 0
     
-    var subscriptions = Set<AnyCancellable>()
+    private var subscriptions = Set<AnyCancellable>()
     
     init() {
         
@@ -48,9 +48,7 @@ class AlbumListViewModel: ObservableObject {
         guard !searchTerm.isEmpty else { return }
         
         guard state == FetchState.good else { return }
-        
-        let offset = page * limit
-        
+                
         service.fetchAlbums(searchTerm: searchTerm, page: page, limit: limit) { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
