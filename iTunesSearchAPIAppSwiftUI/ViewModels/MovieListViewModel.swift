@@ -25,6 +25,7 @@ class MovieListViewModel: ObservableObject {
         
         $searchTerm
             .dropFirst()
+            .removeDuplicates()
             .debounce(for: .seconds(0.5), scheduler: RunLoop.main)
             .sink { [weak self] term in
                 self?.state = .good

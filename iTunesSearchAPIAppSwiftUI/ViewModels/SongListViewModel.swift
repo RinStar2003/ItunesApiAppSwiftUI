@@ -25,11 +25,12 @@ class SongListViewModel: ObservableObject {
         
         $searchTerm
             .dropFirst()
+            .removeDuplicates()
             .debounce(for: .seconds(0.5), scheduler: RunLoop.main)
             .sink { [weak self] term in
-                self?.page = 0
                 self?.state = .good
                 self?.songs = []
+                self?.page = 0
                 self?.fetchSongs(for: term)
             }.store(in: &subscriptions)
         
@@ -45,6 +46,8 @@ class SongListViewModel: ObservableObject {
         
         guard state == FetchState.good else { return }
                 
+        state = .isLoading
+        
         service.fetchSongs(searchTerm: searchTerm, page: page, limit: limit) { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
@@ -56,6 +59,7 @@ class SongListViewModel: ObservableObject {
                     self?.state = (results.results.count == self?.limit) ? .good : .loadedAll
                     print("fetched \(results.resultCount)")
                 case .failure(let error):
+                    print("Could not load data: \(error)")
                     self?.state = .error("Could not load: \(error.localizedDescription)")
                 }
             }

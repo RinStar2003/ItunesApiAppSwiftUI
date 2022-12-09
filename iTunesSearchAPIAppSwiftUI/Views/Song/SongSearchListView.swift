@@ -9,14 +9,14 @@ import SwiftUI
 
 struct SongSearchListView: View {
     
-    @State private var viewModel = SongListViewModel()
+    @StateObject private var viewModel = SongListViewModel()
     
     var body: some View {
         NavigationView {
             
             Group {
                 if viewModel.searchTerm.isEmpty {
-                    AlbumPlaceholderView(searchTerm: $viewModel.searchTerm)
+                    SearchPlaceholderView(searchTerm: $viewModel.searchTerm)
                 } else {
                     SongListView(viewModel: viewModel)
                 }

@@ -29,6 +29,7 @@ class AlbumListViewModel: ObservableObject {
         
         $searchTerm
             .dropFirst()
+            .removeDuplicates()
             .debounce(for: .seconds(0.5), scheduler: RunLoop.main)
             .sink { [weak self] term in
                 self?.page = 0
@@ -49,6 +50,8 @@ class AlbumListViewModel: ObservableObject {
         
         guard state == FetchState.good else { return }
                 
+        state = .isLoading
+
         service.fetchAlbums(searchTerm: searchTerm, page: page, limit: limit) { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
@@ -60,6 +63,7 @@ class AlbumListViewModel: ObservableObject {
                     self?.state = (results.results.count == self?.limit) ? .good : .loadedAll
                     print("fetched \(results.resultCount)")
                 case .failure(let error):
+                    print("Could not load data: \(error)")
                     self?.state = .error("Could not load: \(error.localizedDescription)")
                 }
             }
