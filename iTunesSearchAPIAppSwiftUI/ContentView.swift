@@ -18,17 +18,12 @@ struct ContentView: View {
             
             AlbumSearchView()
                 .tabItem {
-                    Label("Albums", systemImage: "music.note.tv")
+                    Label("Albums", systemImage: "music.note")
                 }
             
             MovieSearchListView()
                 .tabItem {
                     Label("Movies", systemImage: "film.fill")
-                }
-            
-            SongSearchListView()
-                .tabItem {
-                    Label("Songs", systemImage: "music.quarternote.3")
                 }
         }
     }

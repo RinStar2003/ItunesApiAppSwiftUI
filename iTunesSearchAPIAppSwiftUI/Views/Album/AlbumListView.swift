@@ -13,8 +13,8 @@ struct AlbumListView: View {
     
     var body: some View {
             List {
-                ForEach(viewModel.albums) { albums in
-                    Text(albums.collectionName)
+                ForEach(viewModel.albums) { album in
+                    AlbumRowView(album: album)
                 }
                 
                 switch viewModel.state {
