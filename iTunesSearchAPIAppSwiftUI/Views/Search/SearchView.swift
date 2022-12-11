@@ -61,7 +61,6 @@ struct SearchView: View {
                             }
                     }
                 }
-                Spacer()
             }
             .searchable(text: $searchTerm)
             .navigationTitle("Search")
@@ -70,16 +69,16 @@ struct SearchView: View {
         .onChange(of: searchTerm) { newValue in
             
             switch selectedEntityType {
-            case .all:
-                albumViewModel.searchTerm = newValue
-                songViewModel.searchTerm = newValue
-                movieViewModel.searchTerm = newValue
-            case .album:
-                albumViewModel.searchTerm = newValue
-            case .song:
-                songViewModel.searchTerm = newValue
-            case .movie:
-                movieViewModel.searchTerm = newValue
+                case .all:
+                    albumViewModel.searchTerm = newValue
+                    songViewModel.searchTerm = newValue
+                    movieViewModel.searchTerm = newValue
+                case .album:
+                    albumViewModel.searchTerm = newValue
+                case .song:
+                    songViewModel.searchTerm = newValue
+                case .movie:
+                    movieViewModel.searchTerm = newValue
             }
         }
     }

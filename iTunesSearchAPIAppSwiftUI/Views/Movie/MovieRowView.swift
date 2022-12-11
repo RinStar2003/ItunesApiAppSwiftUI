@@ -16,16 +16,18 @@ struct MovieRowView: View {
         HStack {
             
             ImageLoadingView(urlString: movie.artworkUrl100, size: 100)
+            
             VStack(alignment: .leading) {
                 Text(movie.trackName)
-                Text(movie.artistName)
+                Text(movie.primaryGenreName)
                     .foregroundColor(.gray)
                 Text(movie.releaseDate)
                     .foregroundColor(.gray)
             }
             .font(.caption)
-            .lineLimit(1)
-                        
+            
+            Spacer(minLength: 20)
+            
             BuyButton(urlString: movie.previewURL ?? "",
                       price: movie.collectionPrice,
                       currency: movie.currency)

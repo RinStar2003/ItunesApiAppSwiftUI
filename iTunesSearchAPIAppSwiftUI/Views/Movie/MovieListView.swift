@@ -29,8 +29,7 @@ struct MovieListView: View {
                     .progressViewStyle(.circular)
                     .frame(maxWidth: .infinity)
             case .loadedAll:
-                // EmptyView()
-                Color.gray
+                EmptyView()
             case .error(let message):
                 Text(message)
                     .foregroundColor(.red)
